@@ -1,23 +1,24 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '../shared/theme/useTheme';
+import { useTheme } from '../../shared/theme/useTheme';
 
-export default function HomeScreen() {
+export default function AnalyticsScreen() {
   const { colors } = useTheme();
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.content, { backgroundColor: colors.background }]}>
-        <Text style={[styles.title, { color: colors.text }]}>Vitajte v OneApp B2B!</Text>
+        <Text style={[styles.title, { color: colors.text }]}>Analytika</Text>
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-          Správa účtu a prevádzok
+          Dashboard & Feedback
         </Text>
         <View style={[styles.card, { backgroundColor: colors.card }]}>
-          <Text style={[styles.cardTitle, { color: colors.text }]}>1. Core Access</Text>
+          <Text style={[styles.cardTitle, { color: colors.text }]}>5. Analytika</Text>
           <Text style={[styles.cardText, { color: colors.textSecondary }]}>
-            • Jednotné prihlásenie (Social Auth / Apple ID / Email){'\n'}
-            • Multi-Business Management{'\n'}
-            • Operatívna editácia profilu
+            • Partner Dashboard{'\n'}
+            • ROI kalkulačka{'\n'}
+            • Retencia zákazníkov{'\n'}
+            • Review Management
           </Text>
         </View>
       </View>

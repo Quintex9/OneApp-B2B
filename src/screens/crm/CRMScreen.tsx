@@ -1,23 +1,24 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '../shared/theme/useTheme';
+import { useTheme } from '../../shared/theme/useTheme';
 
-export default function HomeScreen() {
+export default function CRMScreen() {
   const { colors } = useTheme();
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.content, { backgroundColor: colors.background }]}>
-        <Text style={[styles.title, { color: colors.text }]}>Vitajte v OneApp B2B!</Text>
+        <Text style={[styles.title, { color: colors.text }]}>CRM</Text>
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-          Správa účtu a prevádzok
+          Customer Insights & Loyalty
         </Text>
         <View style={[styles.card, { backgroundColor: colors.card }]}>
-          <Text style={[styles.cardTitle, { color: colors.text }]}>1. Core Access</Text>
+          <Text style={[styles.cardTitle, { color: colors.text }]}>4. CRM & Loyalty</Text>
           <Text style={[styles.cardText, { color: colors.textSecondary }]}>
-            • Jednotné prihlásenie (Social Auth / Apple ID / Email){'\n'}
-            • Multi-Business Management{'\n'}
-            • Operatívna editácia profilu
+            • História zákazníka{'\n'}
+            • Digital Punch Card{'\n'}
+            • Interné komentáre{'\n'}
+            • Reportovanie (No-Show, Strike systém)
           </Text>
         </View>
       </View>
