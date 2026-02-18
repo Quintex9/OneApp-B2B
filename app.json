@@ -18,7 +18,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.jerrik.oneappb2b"
     },
     "web": {
       "output": "single",
@@ -42,6 +43,12 @@
       "eas": {
         "projectId": "c0dfcb50-aeba-423f-bd48-9c20ca326b5c"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c0dfcb50-aeba-423f-bd48-9c20ca326b5c"
     }
   }
 }

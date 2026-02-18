@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
-import { Modal, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../shared/components/Button';
 import { useTheme } from '../shared/theme/useTheme';
 import CreateBusinessWizard from '../features/createBusiness/CreateBusinessWizard';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/AppNavigator';
 
 export default function HomeScreen() {
   const { colors } = useTheme();
   const [showWizard, setShowWizard] = useState(false);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <SafeAreaView
       style={[{ flex: 1, backgroundColor: colors.background }]}
       edges={['top']}>
+      <Pressable
+        style={styles.profileButton}
+        onPress={() => navigation.navigate('UserSettings')}
+      >
+        <Image
+          source={require('../../assets/images/settings.png')}
+          style={styles.profileImage}
+          resizeMode="contain"
+        />
+      </Pressable>
       <ScrollView style={styles.container}>
         <View style={styles.content}>
           <Text style={[styles.title, { color: colors.text }]}>
@@ -45,7 +59,17 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 200,
+    marginTop: 160,
+  },
+  profileButton: {
+    position: 'absolute',
+    top: 50,
+    right: 25,
+    zIndex: 10,
+  },
+  profileImage: {
+    width: 30,
+    height: 30,
   },
   content: {
     padding: 20,

@@ -1,12 +1,18 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import AnalyticsScreen from '../screens/analytics/AnalyticsScreen';
 import CRMScreen from '../screens/crm/CRMScreen';
 import HomeScreen from '../screens/HomeScreen';
 import OffersScreen from '../screens/offers/OffersScreen';
 import ReservationsScreen from '../screens/reservations/ReservationsScreen';
+import UserSettingsScreen from '../screens/UserSettingsScreen';
 import { useTheme } from '../shared/theme/useTheme';
+import AccountScreen from '../screens/settings/AccountScreen';
+import NotificationsScreen from '../screens/settings/NotificationsScreen';
+import AppearanceScreen from '../screens/settings/AppearanceScreen';
+import SecurityScreen from '../screens/settings/SecurityScreen';
 
 export type MainTabParamList = {
   Home: undefined;
@@ -16,9 +22,19 @@ export type MainTabParamList = {
   Analytics: undefined;
 };
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
+export type RootStackParamList = {
+  MainTabs: undefined;
+  UserSettings: undefined;
+  AccountScreen: undefined;
+  NotificationsScreen: undefined;
+  AppearanceScreen: undefined;
+  SecurityScreen: undefined;
+};
 
-export default function AppNavigator() {
+const Tab = createBottomTabNavigator<MainTabParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function MainTabsNavigator() {
   const { colors, isDark } = useTheme();
 
   return (
@@ -55,5 +71,18 @@ export default function AppNavigator() {
       <Tab.Screen name="CRM" component={CRMScreen} />
       <Tab.Screen name="Analytics" component={AnalyticsScreen} />
     </Tab.Navigator>
+  );
+}
+
+export default function AppNavigator() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="MainTabs" component={MainTabsNavigator} />
+      <Stack.Screen name="UserSettings" component={UserSettingsScreen} />
+      <Stack.Screen name="AccountScreen" component={AccountScreen} />
+      <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
+      <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} />
+      <Stack.Screen name="SecurityScreen" component={SecurityScreen} />
+    </Stack.Navigator>
   );
 }

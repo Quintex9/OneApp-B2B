@@ -157,8 +157,6 @@ export default function CreateBusinessWizard({
                         onEditStep={(s) => setStep(s)}
                     />
                 );
-
-
             default:
                 return null;
         }
