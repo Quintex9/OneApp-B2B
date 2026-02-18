@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TextInput, View, ViewBase } from 'react-native';
+import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTheme } from '@/src/shared/theme/useTheme';
 import { CreateBusinessData } from '../CreateBusinessWizard';
 
@@ -120,3 +120,4 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
 });
+

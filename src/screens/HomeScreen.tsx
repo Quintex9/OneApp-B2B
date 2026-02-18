@@ -7,11 +7,14 @@ import { useTheme } from '../shared/theme/useTheme';
 import CreateBusinessWizard from '../features/createBusiness/CreateBusinessWizard';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
+import { useBusinessSession } from '../features/business/businessSession';
 
 export default function HomeScreen() {
   const { colors } = useTheme();
   const [showWizard, setShowWizard] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const { businesses, selectedBusiness, selectedBusinessId, switchBusiness } = useBusinessSession();
 
   return (
     <SafeAreaView
@@ -35,6 +38,36 @@ export default function HomeScreen() {
           <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
             Get started by creating your first business
           </Text>
+
+          <View style={[styles.card, { backgroundColor: colors.card }]}>
+            <Text style={[styles.cardTitle, { color: colors.text }]}>Aktivna prevadzka</Text>
+            <Text style={[styles.cardText, { color: colors.textSecondary }]}>
+              {selectedBusiness ? `${selectedBusiness.name} • ${selectedBusiness.city}` : 'Ziadna prevadzka'}
+            </Text>
+
+            <View style={{ flexDirection: 'row', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+              {businesses.map((b) => {
+                const active = b.id === selectedBusinessId;
+                return (
+                  <Pressable
+                    key={b.id}
+                    onPress={() => switchBusiness(b.id)}
+                    style={{
+                      paddingVertical: 8,
+                      paddingHorizontal: 12,
+                      borderRadius: 999,
+                      borderWidth: 1,
+                      borderColor: active ? colors.primary : colors.border,
+                      backgroundColor: active ? colors.primary : colors.background,
+                    }}
+                  >
+                    <Text style={{ color: active ? '#fff' : colors.text, fontWeight: '600' }}>{b.name}</Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+
 
           <View style={styles.buttonContainer}>
             <Button
@@ -76,28 +109,28 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   formGroup: {
-  marginBottom: 24,
-},
+    marginBottom: 24,
+  },
 
-label: {
-  fontSize: 15,
-  fontWeight: '600',
-  marginBottom: 8,
-},
+  label: {
+    fontSize: 15,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
 
-input: {
-  height: 48,
-  borderRadius: 10,
-  paddingHorizontal: 14,
-  borderWidth: 1,
-  fontSize: 16,
-},
+  input: {
+    height: 48,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    fontSize: 16,
+  },
 
-helperText: {
-  marginTop: 6,
-  fontSize: 13,
-  lineHeight: 18,
-},
+  helperText: {
+    marginTop: 6,
+    fontSize: 13,
+    lineHeight: 18,
+  },
 
   title: {
     fontSize: 32,

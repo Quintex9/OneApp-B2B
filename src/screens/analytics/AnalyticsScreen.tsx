@@ -1,9 +1,11 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../shared/theme/useTheme';
+import { useBusinessSession } from '@/src/features/business/businessSession';
 
 export default function AnalyticsScreen() {
   const { colors } = useTheme();
+  const {selectedBusiness} = useBusinessSession();
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
@@ -12,6 +14,11 @@ export default function AnalyticsScreen() {
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
           Dashboard & Feedback
         </Text>
+
+        <Text style={[styles.scope, { color: colors.primary }]}>
+          Aktivna prevadzka: {selectedBusiness?.name ?? 'N/A'}
+        </Text>
+
         <View style={[styles.card, { backgroundColor: colors.card }]}>
           <Text style={[styles.cardTitle, { color: colors.text }]}>5. Analytika</Text>
           <Text style={[styles.cardText, { color: colors.textSecondary }]}>
@@ -56,5 +63,10 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 16,
     lineHeight: 24,
+  },
+  scope: {
+    fontSize: 13,
+    fontWeight: '600',
+    marginBottom: 16,
   },
 });

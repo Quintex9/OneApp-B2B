@@ -13,22 +13,34 @@ import AccountScreen from '../screens/settings/AccountScreen';
 import NotificationsScreen from '../screens/settings/NotificationsScreen';
 import AppearanceScreen from '../screens/settings/AppearanceScreen';
 import SecurityScreen from '../screens/settings/SecurityScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
+import { useAuthSession } from '../features/authz/authSession';
+import BusinessHubScreen from '../screens/businessHub/BusinessHubScreen';
+import BusinessProfileScreen from '../screens/businessHub/parts/BusinessProfileScreen';
+import MenuPricingScreen from '../screens/businessHub/parts/MenuPricingScreen';
+import MediaGalleryScreen from '../screens/businessHub/parts/MediaGalleryScreen';
 
 export type MainTabParamList = {
   Home: undefined;
   Offers: undefined;
   Reservations: undefined;
   CRM: undefined;
-  Analytics: undefined;
+  Business: undefined;
 };
 
 export type RootStackParamList = {
+  LoginScreen: undefined;
   MainTabs: undefined;
   UserSettings: undefined;
   AccountScreen: undefined;
   NotificationsScreen: undefined;
   AppearanceScreen: undefined;
   SecurityScreen: undefined;
+  AnalyticsScreen: undefined;
+  BusinessProfileScreen: undefined;
+  MenuPricingScreen: undefined;
+  MediaGalleryScreen: undefined;
+
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -51,7 +63,7 @@ function MainTabsNavigator() {
             iconName = focused ? 'calendar' : 'calendar-outline';
           } else if (route.name === 'CRM') {
             iconName = focused ? 'people' : 'people-outline';
-          } else if (route.name === 'Analytics') {
+          } else if (route.name === 'Business') {
             iconName = focused ? 'stats-chart' : 'stats-chart-outline';
           }
 
@@ -69,20 +81,33 @@ function MainTabsNavigator() {
       <Tab.Screen name="Offers" component={OffersScreen} />
       <Tab.Screen name="Reservations" component={ReservationsScreen} />
       <Tab.Screen name="CRM" component={CRMScreen} />
-      <Tab.Screen name="Analytics" component={AnalyticsScreen} />
+      <Tab.Screen name="Business" component={BusinessHubScreen} />
     </Tab.Navigator>
   );
 }
 
 export default function AppNavigator() {
+  const { isAuthenticated } = useAuthSession();
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MainTabs" component={MainTabsNavigator} />
-      <Stack.Screen name="UserSettings" component={UserSettingsScreen} />
-      <Stack.Screen name="AccountScreen" component={AccountScreen} />
-      <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
-      <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} />
-      <Stack.Screen name="SecurityScreen" component={SecurityScreen} />
+      {!isAuthenticated ? (
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      ) : (
+        <>
+          <Stack.Screen name="MainTabs" component={MainTabsNavigator} />
+          <Stack.Screen name="UserSettings" component={UserSettingsScreen} />
+          <Stack.Screen name="AccountScreen" component={AccountScreen} />
+          <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
+          <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} />
+          <Stack.Screen name="SecurityScreen" component={SecurityScreen} />
+          <Stack.Screen name="AnalyticsScreen" component={AnalyticsScreen} />
+          <Stack.Screen name="BusinessProfileScreen" component={BusinessProfileScreen} />
+          <Stack.Screen name="MenuPricingScreen" component={MenuPricingScreen} />
+          <Stack.Screen name="MediaGalleryScreen" component={MediaGalleryScreen} />
+
+        </>
+      )}
     </Stack.Navigator>
   );
 }
